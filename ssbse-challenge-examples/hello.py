@@ -53,12 +53,10 @@ from gem5.simulate.simulator import Simulator
 import argparse
 
 # Here we read in the parameters passed to the configuration script.
-parser = argparse.ArgumentParser(
-    description="A hello-world script."
-)
+parser = argparse.ArgumentParser(description="A hello-world script.")
 
 parser.add_argument(
-    "isa",
+    "--isa",
     type=str,
     required=False,
     default="X86",
@@ -119,9 +117,7 @@ elif args.isa == "RISCV":
 
 assert resource_id is not None
 
-board.set_se_binary_workload(
-    Resource("resource_id")
-)
+board.set_se_binary_workload(Resource(resource_id))
 
 # Lastly we run the simulation with the "Simulator" module.
 simulator = Simulator(board=board)

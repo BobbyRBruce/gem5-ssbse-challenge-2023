@@ -70,9 +70,7 @@ requires(
 )
 
 # Here we read in the parameters passed to the configuration script.
-parser = argparse.ArgumentParser(
-    description="An example X86 boot script."
-)
+parser = argparse.ArgumentParser(description="An example X86 boot script.")
 
 # The only positional argument accepted is the benchmark name in this script.
 
@@ -133,7 +131,7 @@ memory = SingleChannelDDR3_1600(size="3GB")
 # When it doubt, use the Timing CPU. It will give you accurate timings without
 # too much of a performance cost
 processor = SimpleProcessor(
-    core_type=CPUTypes.TIMING,
+    cpu_type=CPUTypes.TIMING,
     isa=ISA.X86,
     num_cores=2,
 )
@@ -154,7 +152,7 @@ board = X86Board(
 # that if a "readfile" is set, the disk image will attempt to load the file
 # then execute it. If "readfile" is not set the simulation will exit after
 # boot. The readfile parameter can be used to pass bash scripts or statically
-# linked binaries to the simulation. 
+# linked binaries to the simulation.
 #
 # Note: If the readfile executes and does not trigger a simulation exit, the
 # simulation will not exit. The
@@ -165,7 +163,8 @@ board = X86Board(
 # Though, it should be noted that booting the OS does not invoke any floating
 # point operations.
 workload = Workload("x86-ubuntu-18.04-boot")
-workload.set_parameter("readfile", readfile)
+if args.readfile:
+    workload.set_parameter("readfile", args.readfile)
 board.set_workload(workload)
 
 # Here we setup the simulator. The board just specifies the the system.
@@ -202,6 +201,6 @@ else:
     #
     # Comment out the 3 lines of code below and see for yourself.
     #
-    #print("The simulation exited. Going to start the simulation again.")
-    #simulator.run()
-    #print("The simulation exited again.")
+    # print("The simulation exited. Going to start the simulation again.")
+    # simulator.run()
+    # print("The simulation exited again.")
