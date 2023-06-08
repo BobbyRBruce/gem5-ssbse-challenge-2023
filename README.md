@@ -77,16 +77,15 @@ To run it you pass it to gem5:
 This will run a simple simulation which prints "hello world" to the terminal.
 
 Any parameters passed after the config file in the command line are passed to the config file.
-In the "hello.py" example we can specify the ISA to run.
+In the "hello.py" example we can specify the ISA to run with the `--isa` flag.
 By default it will run X86 but ARM and RISCV are options.
 To run an ARM simulation you can therefore run:
 
 ```sh
-./build/ALL/gem5.opt ssbse-challenge-examples/hello.py ARM
+./build/ALL/gem5.opt ssbse-challenge-examples/hello.py --isa ARM
 ```
 
 ## gem5 at a high level
-
 
 Almost everything in gem5 can be broken down into "SimObjects", the "events" they schedule, and the connections between the SimObjects via "ports".
 
