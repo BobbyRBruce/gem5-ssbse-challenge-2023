@@ -129,7 +129,8 @@ memory = SingleChannelDDR3_1600(size="3GB")
 # of cores. "configs/example/gem5_library" contains scripts you may reference.
 #
 # When it doubt, use the Timing CPU. It will give you accurate timings without
-# too much of a performance cost
+# too much of a performance cost. If you just want to play with this script and
+# want something fast, se the Atomic CPU.
 processor = SimpleProcessor(
     cpu_type=CPUTypes.TIMING,
     isa=ISA.X86,

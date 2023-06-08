@@ -85,6 +85,12 @@ To run an ARM simulation you can therefore run:
 ./build/ALL/gem5.opt ssbse-challenge-examples/hello.py --isa ARM
 ```
 
+### Seeing your output
+
+gem5 will output statistics and other information to the "m5out" directory.
+The statistics files will let you know the simulated time,
+cache hits and misses, and most things you'd want to know about your system.
+
 ## gem5 at a high level
 
 Almost everything in gem5 can be broken down into "SimObjects", the "events" they schedule, and the connections between the SimObjects via "ports".
@@ -119,6 +125,11 @@ A tutorial which shows how to work with SimObjects in a config file (as well as 
 The "ssbse-challenge-examples/x86-ubuntu-run.py" example shows a typical gem5 simulation.
 Please open and read through this file.
 Comments have been added explaining what the code does and how it may be used.
+
+As the simulation is running you can find a log of the terminal output in
+"m5out".
+This can be useful for looking to see how your simulation is doing.
+
 The following subsections highlight its usage.
 
 ### Boot then exit
@@ -228,6 +239,17 @@ These tests cover most use-cases.
 These tests ensure all the various ways gem5 can be compiled, across different
 versions of clang and gcc, still work.
 This script requires docker to function.
+
+## Common questions/complaints and my response
+
+* __"I get a lot of warnings when running gem5"__: gem5 is noisy.
+Warnings in gem5 are not necessarily indicative of a problem.
+They are merely our mechanism for communicating things that may be a problem, even if unlikely.
+* __"gem5 is slow"__: It is, you can expect at least a 10k to 100k times slow down. So one simulated second can be 100k seconds to run on the host machine .
+If you aware willing to sacrifice accuracy for speed, try using a different CPU core (ATOMIC for example). If possible you may want to use the KVM core, though this requires a compatible host machine: https://www.gem5.org/documentation/general_docs/using_kvm/. There is also a technique known as "checkpointing" to save a gem5 state and return to it later. This can be used to avoid booting the system every time you wish to run a simulation. It is documented here: https://www.gem5.org/documentation/general_docs/checkpointing/.
+* __"gem5 is using a lot of memory"__: gem5 is a memory intensive application. It is not uncommon for gem5 to use 6GB of memory per thread. If you are running multiple gem5 simulations in parallel, you may run out of memory. If you are running gem5 on a machine with limited memory, you may wish to reduce the number of threads you are using.
+
+
 
 ## Additional resources and getting help
 
