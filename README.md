@@ -118,7 +118,7 @@ The simulator would then moved through the event queue and execute the scheduled
 When the memory request event is reached, the function would be called and the CPU would process the returned value, likely scheduling future events for processing of that instruction.
 
 This is a very high-level conceptualization of gem5 but may serve useful in your work.
-A tutorial which shows how to work with SimObjects in a config file (as well as develop your own, if needed) can be found here: https://www.gem5.org/documentation/learning_gem5/.
+A tutorial which shows how to work with SimObjects in a config file (as well as develop your own, if needed) can be found here: https://www.gem5.org/documentation/learning_gem5/introduction/.
 
 ## A Typical gem5 Simulation
 
