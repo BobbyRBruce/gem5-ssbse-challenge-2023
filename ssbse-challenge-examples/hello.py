@@ -43,7 +43,7 @@ scons build/ALL/gem5.opt
 """
 
 from gem5.isas import ISA
-from gem5.resources.resource import Resource
+from gem5.resources.resource import obtain_resource
 from gem5.components.memory import SingleChannelDDR3_1600
 from gem5.components.processors.cpu_types import CPUTypes
 from gem5.components.boards.simple_board import SimpleBoard
@@ -117,7 +117,7 @@ elif args.isa == "RISCV":
 
 assert resource_id is not None
 
-board.set_se_binary_workload(Resource(resource_id))
+board.set_se_binary_workload(obtain_resource(resource_id))
 
 # Lastly we run the simulation with the "Simulator" module.
 simulator = Simulator(board=board)
