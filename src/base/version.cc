@@ -32,6 +32,6 @@ namespace gem5
 /**
  * @ingroup api_base_utils
  */
-const char *gem5Version = "[SSBSE Challenge Track '23 Variant]";
+const char *gem5Version = "23.0.0.1--SSBSE Challeng Track";
 
 } // namespace gem5
