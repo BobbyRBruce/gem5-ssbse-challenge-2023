@@ -1,3 +1,4 @@
+/*WBL 13 September 2023 add empty() */
 /*
  * Copyright (c) 2002-2005 The Regents of The University of Michigan
  * All rights reserved.
@@ -121,6 +122,7 @@ class PCEventQueue : public PCEventScope
 
         return doService(pc, tc);
     }
+    bool empty() const { return pcMap.empty(); }
 
     range_t equal_range(Addr pc);
     range_t equal_range(PCEvent *event) { return equal_range(event->pc()); }

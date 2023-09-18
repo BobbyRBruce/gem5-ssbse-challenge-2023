@@ -1,3 +1,4 @@
+/*WBL 12 September 2023 inline updateCycleCounts() by move to .hh */
 /*
  * Copyright (c) 2012-2013,2015,2018,2020-2021 ARM Limited
  * All rights reserved
@@ -253,7 +254,14 @@ class TimingSimpleCPU : public BaseSimpleCPU
 
     };
 
-    void updateCycleCounts();
+void updateCycleCounts()
+{
+    const Cycles delta(curCycle() - previousCycle);
+
+    baseStats.numCycles += delta;
+
+    previousCycle = curCycle();
+}
 
     IcachePort icachePort;
     DcachePort dcachePort;

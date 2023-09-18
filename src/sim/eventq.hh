@@ -1,3 +1,4 @@
+/*WBL 11 September 2023 add non-virtual Event functions so they are inline */
 /*
  * Copyright (c) 2000-2005 The Regents of The University of Michigan
  * Copyright (c) 2013 Advanced Micro Devices, Inc.
@@ -255,6 +256,7 @@ class Event : public EventBase, public Serializable
 {
     friend class EventQueue;
 
+
   private:
     // The event queue is now a linked list of linked lists.  The
     // 'nextBin' pointer is to find the bin, where a bin is defined as
@@ -383,12 +385,24 @@ class Event : public EventBase, public Serializable
     /**
      * Managed event scheduled and being held in the event queue.
      */
-    void acquire();
+
+void
+acquire()
+{
+    if (flags.isSet(Managed))
+        acquireImpl();
+}
+
 
     /**
      * Managed event removed from the event queue.
      */
-    void release();
+void
+release()
+{
+    if (flags.isSet(Managed))
+        releaseImpl();
+}
 
     virtual void acquireImpl();
 

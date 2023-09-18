@@ -1,3 +1,4 @@
+/*WBL 12 September 2023 inline updateCycleCounts() by move to .hh */
 /*
  * Copyright 2014 Google, Inc.
  * Copyright (c) 2010-2013,2015,2017-2018, 2020-2021 ARM Limited
@@ -1074,16 +1075,6 @@ TimingSimpleCPU::completeDataAccess(PacketPtr pkt)
     postExecute();
 
     advanceInst(fault);
-}
-
-void
-TimingSimpleCPU::updateCycleCounts()
-{
-    const Cycles delta(curCycle() - previousCycle);
-
-    baseStats.numCycles += delta;
-
-    previousCycle = curCycle();
 }
 
 void

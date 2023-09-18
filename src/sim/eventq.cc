@@ -1,3 +1,4 @@
+/*WBL 11 September 2023 remove serviceOne()'s lock, inline by move to .hh */
 /*
  * Copyright (c) 2000-2005 The Regents of The University of Michigan
  * Copyright (c) 2008 The Hewlett-Packard Development Company
@@ -109,20 +110,6 @@ Event::insertBefore(Event *event, Event *curr)
 }
 
 void
-Event::acquire()
-{
-    if (flags.isSet(Event::Managed))
-        acquireImpl();
-}
-
-void
-Event::release()
-{
-    if (flags.isSet(Event::Managed))
-        releaseImpl();
-}
-
-void
 Event::acquireImpl()
 {
 }
@@ -223,7 +210,7 @@ EventQueue::remove(Event *event)
 Event *
 EventQueue::serviceOne()
 {
-    std::lock_guard<EventQueue> lock(*this);
+  //WBL std::lock_guard<EventQueue> lock(*this);
     Event *event = head;
     Event *next = head->nextInBin;
     event->flags.clear(Event::Scheduled);

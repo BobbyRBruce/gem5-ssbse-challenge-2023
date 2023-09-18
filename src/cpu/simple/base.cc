@@ -1,3 +1,4 @@
+/*WBL 13 Sep 2023 add check PCEventQueue::empty() and debug::ExecEnable*/
 /*
  * Copyright (c) 2010-2012, 2015, 2017, 2018, 2020 ARM Limited
  * Copyright (c) 2013 Advanced Micro Devices, Inc.
@@ -122,6 +123,9 @@ BaseSimpleCPU::BaseSimpleCPU(const BaseSimpleCPUParams &p)
 void
 BaseSimpleCPU::checkPcEventQueue()
 {
+    //if empty now then no whole PCEventQueue is empty so no need to check
+    if (threadInfo[curThread]->thread->pcEventQueue.empty()) return;
+
     Addr oldpc, pc = threadInfo[curThread]->thread->pcState().instAddr();
     do {
         oldpc = pc;
@@ -383,8 +387,10 @@ BaseSimpleCPU::preExecute()
     //If we decoded an instruction this "tick", record information about it.
     if (curStaticInst) {
 #if TRACING_ON
+      if (debug::ExecEnable) { //getInstRecord does nothing unless ExecEnable
         traceData = tracer->getInstRecord(curTick(), thread->getTC(),
                 curStaticInst, thread->pcState(), curMacroStaticInst);
+      }
 #endif // TRACING_ON
     }
 
